@@ -29,7 +29,7 @@
 
 &emsp;&emsp;编译环境
 
-&emsp;&emsp;&emsp;.Net 5.0
+&emsp;&emsp;&emsp;.Net 6.0
 
 
 
@@ -41,7 +41,7 @@
     
     &emsp;编译环境 
     
-    &emsp;&emsp;.Net6.0
+    &emsp;&emsp;.Net 6.0
 
 
 

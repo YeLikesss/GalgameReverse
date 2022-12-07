@@ -17,7 +17,7 @@
 
 #### 1.NekoNyan发行商
 
-* 自研封包V1 (Unity)  (静态提取)
+* 1.自研封包V1 (Unity)  (静态提取)
 
 &emsp;&emsp;游戏测试
 
@@ -32,6 +32,16 @@
 &emsp;&emsp;&emsp;.Net 5.0
 
 
+
+#### 2.HikariField发行商
+
+* 1.《アオナツライン》 (Unity Official Chs Ver) (静态提取)
+
+    &emsp;提取完毕后自行使用AssetStudio打开
+    
+    &emsp;编译环境 
+    
+    &emsp;&emsp;.Net6.0
 
 
 

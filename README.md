@@ -2,6 +2,7 @@
 
 * <font size=5>国产Galgame请看[这边](https://github.com/YeLikesss/CNGALTools)</font>
 * <font size=5>开源项目需要自己下载Visual Studio进行编译</font>
+* <font size=5>程序仅在Windows 7 x64 SP1下开发并测试通过 其他系统如出现兼容性问题需自行解决</font>
 * <font size=5>如部分项目不开源请谅解</font>
 
 ### 使用条例
@@ -43,8 +44,57 @@
     
     &emsp;&emsp;.Net 6.0
 
+#### 3.Wamsoft外包厂
+
+* 1.KrkrZCxdecV2  动态解包+Hash爆破GUI(仅动态版本)
+
+    &emsp;解包配置文件
+
+    ```
+    {
+    	"enableExtract": false,
+    	"enableHasher": false,
+    	"enableDynamicHashDecoder": false,
+    	"extractDelayTimes":15000,
+    	"packageFiles": [
+    		"data.xp3",
+    		"evimage.xp3",
+    		"fgimage.xp3",
+    		"bgimage.xp3",
+    		"voice.xp3",
+    		"chapter1.xp3",
+    		"chapter2.xp3",
+    		"patch@r267.xp3",
+    		"patch@r377.xp3",
+    		"patch_append81.xp3",
+    		"patch_append82.xp3"
+    	]
+    }
+    enableExtract 开启动态解包
+    enableHasher 开启动态Hash模块
+    enableDynamicHashDecoder 启动Hash爆破GUI (动态版本)
+    extractDelayTimes 解包延时
+    packageFiles 你要解的封包
+    
+    需要使用DebugView观察Log输出, 详细内容自行看源码
+    
+    下列文件必须在同一路径下
+    ArchiveExtractor.dll
+    ArchiveExtractorLoader.exe
+    ArchiveExtractor.json
+    CxHashDecoder.exe
+    ```
+
+    &emsp;GUI使用
+
+    &emsp;&emsp;自己看源码  有详细注释
+
+    &emsp;编译环境
+
+    &emsp;&emsp;MSVC 2022 x86 + .Net6.x x86 Only
+
 
 
 #### SP1.优化补丁
 
-* 1.《素敵な彼女の作り方》 垂直同步补丁 降低显卡占用
+* 1.《素敵な彼女の作り方》 垂直同步补丁 降低显卡占用(Steam版)

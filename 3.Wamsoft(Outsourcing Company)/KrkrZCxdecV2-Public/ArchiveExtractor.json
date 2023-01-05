@@ -1,0 +1,19 @@
+{
+	"enableExtract": false,
+	"enableHasher": false,
+	"enableDynamicHashDecoder": false,
+	"extractDelayTimes":15000,
+	"packageFiles": [
+		"data.xp3",
+		"evimage.xp3",
+		"fgimage.xp3",
+		"bgimage.xp3",
+		"voice.xp3",
+		"chapter1.xp3",
+		"chapter2.xp3",
+		"patch@r267.xp3",
+		"patch@r377.xp3",
+		"patch_append81.xp3",
+		"patch_append82.xp3"
+	]
+}

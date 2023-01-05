@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArchiveExtractor", "ArchiveExtractor\ArchiveExtractor.vcxproj", "{C43A55E8-8D0C-479E-BD44-A648D550E594}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArchiveExtractorLoader", "ArchiveExtractorLoader\ArchiveExtractorLoader.vcxproj", "{26785597-4B94-439F-AE7E-4F41A4010BE1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CxdecUtils", "CxdecUtils\CxdecUtils.csproj", "{F7E6D7A0-8C0C-47E9-A7F3-C3B9493FFF2E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CxHashDecoder", "CxHashDecoder\CxHashDecoder.csproj", "{5789BE42-1DE3-42AD-B653-237E6E222495}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C43A55E8-8D0C-479E-BD44-A648D550E594}.Debug|x86.ActiveCfg = Debug|Win32
+		{C43A55E8-8D0C-479E-BD44-A648D550E594}.Debug|x86.Build.0 = Debug|Win32
+		{C43A55E8-8D0C-479E-BD44-A648D550E594}.Release|x86.ActiveCfg = Release|Win32
+		{C43A55E8-8D0C-479E-BD44-A648D550E594}.Release|x86.Build.0 = Release|Win32
+		{26785597-4B94-439F-AE7E-4F41A4010BE1}.Debug|x86.ActiveCfg = Debug|Win32
+		{26785597-4B94-439F-AE7E-4F41A4010BE1}.Debug|x86.Build.0 = Debug|Win32
+		{26785597-4B94-439F-AE7E-4F41A4010BE1}.Release|x86.ActiveCfg = Release|Win32
+		{26785597-4B94-439F-AE7E-4F41A4010BE1}.Release|x86.Build.0 = Release|Win32
+		{F7E6D7A0-8C0C-47E9-A7F3-C3B9493FFF2E}.Debug|x86.ActiveCfg = Debug|x86
+		{F7E6D7A0-8C0C-47E9-A7F3-C3B9493FFF2E}.Debug|x86.Build.0 = Debug|x86
+		{F7E6D7A0-8C0C-47E9-A7F3-C3B9493FFF2E}.Release|x86.ActiveCfg = Release|x86
+		{F7E6D7A0-8C0C-47E9-A7F3-C3B9493FFF2E}.Release|x86.Build.0 = Release|x86
+		{5789BE42-1DE3-42AD-B653-237E6E222495}.Debug|x86.ActiveCfg = Debug|x86
+		{5789BE42-1DE3-42AD-B653-237E6E222495}.Debug|x86.Build.0 = Debug|x86
+		{5789BE42-1DE3-42AD-B653-237E6E222495}.Release|x86.ActiveCfg = Release|x86
+		{5789BE42-1DE3-42AD-B653-237E6E222495}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9078FF48-6B0D-417F-81DB-7761C59F7F35}
+	EndGlobalSection
+EndGlobal

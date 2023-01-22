@@ -9,10 +9,10 @@
 
 * <font size=5>禁止用于任何商业行为</font>
 * <font size=5>禁止用于任何形式机器翻译</font>
-* <font size=5>禁止用于移植到任何非原生x86/x64 Windows平台上</font>
+* <font size=5>禁止用于移植到任何非原生x86/x64 Windows(包括但不限于Kirikiroid Ons Wine Exagear Windows ARM等平台上)</font>
 * <font size=5>禁止用于任何AI学习</font>
 
-
+### 一经发现  跑路并不再更新    (垃圾圈子机翻移植烂活就是多)
 
 ### 项目内容
 
@@ -30,9 +30,7 @@
 
 &emsp;&emsp;编译环境
 
-&emsp;&emsp;&emsp;.Net 6.0
-
-
+&emsp;&emsp;&emsp;.Net 6.x
 
 #### 2.HikariField发行商
 
@@ -42,7 +40,7 @@
     
     &emsp;编译环境 
     
-    &emsp;&emsp;.Net 6.0
+    &emsp;&emsp;.Net 6.x
 
 #### 3.Wamsoft外包厂
 
@@ -91,10 +89,36 @@
 
     &emsp;编译环境
 
-    &emsp;&emsp;MSVC 2022 x86 + .Net6.x x86 Only
+    &emsp;&emsp;MSVC 2022 x86 + .Net 6.x x86 Only
+    
+* 2.PbdDecoder pbd立绘合成 (静态合成)
 
+    &emsp;注意事项
 
+    &emsp;&emsp;1.合成器未内置tlg解码器  需要先把tlg转成png  可以使用[GarBro](https://github.com/morkt/GARbro)进行编码转换
+
+    &emsp;&emsp;2.自带发布编译参数  一键发布即可完成编译 
+
+    &emsp;使用方法
+
+    &emsp;&emsp;请看SP.2里面的图片教程
+
+    &emsp;编译环境
+
+    &emsp;&emsp;.Net 6.x
+
+    &emsp;Nuget依赖
+
+    &emsp;&emsp;K4os.Compression.LZ4
+
+    &emsp;&emsp;System.Drawing.Common
+
+    
 
 #### SP1.优化补丁
 
 * 1.《素敵な彼女の作り方》 垂直同步补丁 降低显卡占用(Steam版)
+
+#### SP2.笔记
+
+* 1.Pbd立绘合成器使用方法

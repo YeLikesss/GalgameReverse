@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PbdStatic", "PbdStatic\PbdStatic.csproj", "{37D04941-5E48-458A-8EC6-73E19BE4B8D5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleExecute", "ConsoleExecute\ConsoleExecute.csproj", "{88159057-2278-46CB-AEE9-3EBFB58B0612}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PbdGalleryMerger", "PbdGalleryMerger\PbdGalleryMerger.csproj", "{B8E4D1AF-7A93-429E-B6F4-8F11A6D6BC60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{37D04941-5E48-458A-8EC6-73E19BE4B8D5}.Debug|x64.ActiveCfg = Debug|x64
+		{37D04941-5E48-458A-8EC6-73E19BE4B8D5}.Debug|x64.Build.0 = Debug|x64
+		{37D04941-5E48-458A-8EC6-73E19BE4B8D5}.Release|x64.ActiveCfg = Release|x64
+		{37D04941-5E48-458A-8EC6-73E19BE4B8D5}.Release|x64.Build.0 = Release|x64
+		{88159057-2278-46CB-AEE9-3EBFB58B0612}.Debug|x64.ActiveCfg = Debug|x64
+		{88159057-2278-46CB-AEE9-3EBFB58B0612}.Debug|x64.Build.0 = Debug|x64
+		{88159057-2278-46CB-AEE9-3EBFB58B0612}.Release|x64.ActiveCfg = Release|x64
+		{88159057-2278-46CB-AEE9-3EBFB58B0612}.Release|x64.Build.0 = Release|x64
+		{B8E4D1AF-7A93-429E-B6F4-8F11A6D6BC60}.Debug|x64.ActiveCfg = Debug|x64
+		{B8E4D1AF-7A93-429E-B6F4-8F11A6D6BC60}.Debug|x64.Build.0 = Debug|x64
+		{B8E4D1AF-7A93-429E-B6F4-8F11A6D6BC60}.Release|x64.ActiveCfg = Release|x64
+		{B8E4D1AF-7A93-429E-B6F4-8F11A6D6BC60}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA9F7EDE-00E9-4300-92B4-ECA9046A40FA}
+	EndGlobalSection
+EndGlobal

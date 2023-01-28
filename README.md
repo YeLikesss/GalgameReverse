@@ -22,11 +22,13 @@
 
 &emsp;&emsp;游戏测试
 
-&emsp;&emsp;&emsp;《蒼の彼方のフォーリズム》
+&emsp;&emsp;&emsp;《蒼の彼方のフォーリズム》 V10
 
-&emsp;&emsp;&emsp;《蒼の彼方のフォーリズム EXTRA1》
+&emsp;&emsp;&emsp;《蒼の彼方のフォーリズム EXTRA1》 V10
 
-&emsp;&emsp;&emsp;《金色ラブリッチェ》
+&emsp;&emsp;&emsp;《金色ラブリッチェ》 V10
+
+&emsp;&emsp;&emsp;《蒼の彼方のフォーリズム EXTRA2》 V11
 
 &emsp;&emsp;编译环境
 

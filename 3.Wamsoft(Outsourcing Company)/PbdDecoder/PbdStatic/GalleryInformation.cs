@@ -138,7 +138,8 @@ namespace PbdStatic
             PbdBinary pbdBinary = PbdBinary.Create(packageFullPath, keyInfo);
             if (pbdBinary != null)
             {
-                if (pbdBinary.TryGetTJSVariantObject(out TJSVariant tjsGalleryTable))
+                pbdBinary.TryGetTJSVariantObject(out TJSVariant tjsGalleryTable);       //忽略校验和
+                if (tjsGalleryTable != null)
                 {
                     return GalleryInformation.Create(tjsGalleryTable, packageFullPath);       //创建立绘表信息
                 }

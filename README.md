@@ -20,19 +20,23 @@
 
 * 1.自研封包V1 (Unity)  (静态提取)
 
-&emsp;&emsp;游戏测试
+  使用方法
 
-&emsp;&emsp;&emsp;《蒼の彼方のフォーリズム》 V10
+  &emsp;已配置好发布文件  右键ExtractGUI然后发布即可使用
 
-&emsp;&emsp;&emsp;《蒼の彼方のフォーリズム EXTRA1》 V10
+  游戏测试
 
-&emsp;&emsp;&emsp;《金色ラブリッチェ》 V10
+  &emsp;&emsp;《蒼の彼方のフォーリズム》 V10
 
-&emsp;&emsp;&emsp;《蒼の彼方のフォーリズム EXTRA2》 V11
+  &emsp;&emsp;《蒼の彼方のフォーリズム EXTRA1》 V10
 
-&emsp;&emsp;编译环境
+  &emsp;&emsp;《金色ラブリッチェ》 V10
 
-&emsp;&emsp;&emsp;.Net 6.x
+  &emsp;&emsp;《蒼の彼方のフォーリズム EXTRA2》 V11
+
+  编译环境
+
+  &emsp;&emsp;.Net 6.x
 
 #### 2.HikariField发行商
 

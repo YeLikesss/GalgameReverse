@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Buffers;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace NekoNyanStatic.Crypto.V1
 {
@@ -68,7 +67,7 @@ namespace NekoNyanStatic.Crypto.V1
             for (int i = 0; i < fileCount; ++i)
             {
                 int pos = 4 * i;
-                ArchiveCryptoV10.FileEntry entry = new()
+                FileEntry entry = new()
                 {
                     Size = rawEntryDataPack4[pos + 0],
                     Key = rawEntryDataPack4[pos + 2],
@@ -104,7 +103,6 @@ namespace NekoNyanStatic.Crypto.V1
                 tablePtr[i] = (byte)k1;
                 k1 >>= 1;
             }
-
         }
 
         /// <summary>

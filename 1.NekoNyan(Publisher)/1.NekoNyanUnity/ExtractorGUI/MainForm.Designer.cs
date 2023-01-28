@@ -1,4 +1,7 @@
-﻿namespace ExtractorGUI
+﻿using System;
+using System.Windows.Forms;
+
+namespace ExtractorGUI
 {
     partial class MainForm
     {

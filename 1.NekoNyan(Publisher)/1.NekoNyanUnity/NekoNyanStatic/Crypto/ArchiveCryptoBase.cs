@@ -118,7 +118,7 @@ namespace NekoNyanStatic.Crypto
         {
             this.mFileStream = File.OpenRead(pkgPath);
             this.mPackageName = Path.GetFileNameWithoutExtension(pkgPath);
-            this.mExtractDir = Path.Combine(Path.GetDirectoryName(pkgPath), "Extract", this.mPackageName);
+            this.mExtractDir = Path.Combine(Path.GetDirectoryName(pkgPath), "Extract_Static", this.mPackageName);
             this.Initialize();
         }
 

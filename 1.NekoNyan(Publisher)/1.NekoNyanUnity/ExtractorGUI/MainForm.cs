@@ -1,5 +1,13 @@
-using NekoNyanStatic.Crypto;
+ï»¿using System;
 using System.Text;
+using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Threading;
+using System.IO;
+using System.Linq;
+
+using NekoNyanStatic.Crypto;
+
 
 namespace ExtractorGUI
 {
@@ -12,6 +20,9 @@ namespace ExtractorGUI
 
         private Dictionary<string, CryptoVersion> mGameInfo;
 
+        /// <summary>
+        /// åˆå§‹åŒ–æ¸¸æˆä¿¡æ¯
+        /// </summary>
         private void InitializeGameInformation()
         {
             this.mGameInfo = DataManager.SGameInformations;
@@ -24,6 +35,9 @@ namespace ExtractorGUI
             }
         }
 
+        /// <summary>
+        /// åˆå§‹åŒ–æ—¥å¿—è¾“å‡º
+        /// </summary>
         private void InitializeLog()
         {
             Console.SetOut(new TextBoxLog(this.tbLog));
@@ -66,7 +80,7 @@ namespace ExtractorGUI
             {
                 string title = cb.SelectedItem.ToString();
 
-                this.labelCryptoVer.Text = string.Format("{0}°æ¼ÓÃÜ", this.mGameInfo[title].ToString());
+                this.labelCryptoVer.Text = string.Format("{0}ç‰ˆåŠ å¯†", this.mGameInfo[title].ToString());
             }
             else
             {
@@ -77,15 +91,14 @@ namespace ExtractorGUI
         private void btnExtract_Click(object sender, EventArgs e)
         {
             this.tbLog.Clear();
-
             if (this.lbFilePath.Items.Count <= 0)
             {
-                MessageBox.Show("ÇëÍÏ×§´ı½â·â°üµ½Ö¸¶¨Î»ÖÃ", "Information");
+                MessageBox.Show("è¯·æ‹–æ‹½å¾…è§£å°åŒ…åˆ°æŒ‡å®šä½ç½®", "Error");
                 return;
             }
             if (this.cbGameTitle.SelectedIndex < 0)
             {
-                MessageBox.Show("ÇëÑ¡ÔñÓÎÏ·", "Information");
+                MessageBox.Show("è¯·é€‰æ‹©æ¸¸æˆ", "Error");
                 return;
             }
 
@@ -99,13 +112,20 @@ namespace ExtractorGUI
                 foreach (string pkgPath in fullPaths)
                 {
                     ArchiveCryptoBase filter = ArchiveCryptoBase.Create(pkgPath, ver);
-                    Thread thread = new(new ThreadStart(() =>
+                    if (filter != null)
                     {
-                        filter.Extract();
-                        filter.Dispose();
-                    }));
-                    extractThreads.Add(thread);
-                    thread.Start();
+                        Thread thread = new(new ThreadStart(() =>
+                        {
+                            filter.Extract();
+                            filter.Dispose();
+                        }));
+                        extractThreads.Add(thread);
+                        thread.Start();
+                    }
+                    else
+                    {
+                        MessageBox.Show(string.Format("{0}åŠ å¯†å¯¹è±¡åˆ›å»ºå¤±è´¥", Path.GetFileName(pkgPath)), "Error");
+                    }
                 }
 
                 new Thread(new ParameterizedThreadStart((object o) =>
@@ -113,16 +133,14 @@ namespace ExtractorGUI
                     List<Thread> ts = o as List<Thread>;
                     while (ts.Any(t => t.IsAlive))
                     {
-                        Thread.Sleep(1);
+                        Thread.Sleep(10);
                     }
                     this.BeginInvoke(() => { btn.Enabled = true; });
-
                 })).Start(extractThreads);
-
             }
             else
             {
-                MessageBox.Show("»ñÈ¡²»µ½ÓÎÏ·ĞÅÏ¢", "Information");
+                MessageBox.Show("è·å–ä¸åˆ°æ¸¸æˆä¿¡æ¯", "Error");
             }
         }
 

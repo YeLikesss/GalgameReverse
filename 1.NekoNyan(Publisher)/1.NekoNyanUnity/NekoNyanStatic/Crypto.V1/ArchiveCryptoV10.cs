@@ -9,44 +9,14 @@ using System.Threading.Tasks;
 namespace NekoNyanStatic.Crypto.V1
 {
     /// <summary>
-    /// 封包加密类
+    /// 封包加密类V10
     /// </summary>
-    public class ArchiveCrypto
+    internal class ArchiveCryptoV10 : ArchiveCryptoBase
     {
-        /// <summary>
-        /// 文件表
-        /// </summary>
-        public struct FileEntry
-        {
-            /// <summary>
-            /// 文件名
-            /// </summary>
-            public string FileName;
-            /// <summary>
-            /// 文件偏移
-            /// </summary>
-            public uint Offset;
-            /// <summary>
-            /// 文件大小
-            /// </summary>
-            public uint Size;
-            /// <summary>
-            /// Key
-            /// </summary>
-            public uint Key;
-        }
-
-
-        private FileStream mFileStream;
-        private List<ArchiveCrypto.FileEntry> mFileEntries;         //文件表数组
-
-        private string mPackageName;        //封包名字
-        private string mExtractDir;          //提取路径
-
         /// <summary>
         /// 初始化
         /// </summary>
-        private void Initialize()
+        protected override void Initialize()
         {
             this.mFileStream.Position = 0;
 
@@ -91,14 +61,14 @@ namespace NekoNyanStatic.Crypto.V1
         /// <param name="rawEntryData">原文件表信息</param>
         /// <param name="rawFileNamesData">原文件名信息</param>
         /// <param name="fileCount">文件个数</param>
-        private void ParserFileEntry(Span<byte> rawEntryData,Span<byte> rawFileNamesData,int fileCount)
+        protected override void ParserFileEntry(Span<byte> rawEntryData,Span<byte> rawFileNamesData,int fileCount)
         {
             Span<uint> rawEntryDataPack4 = MemoryMarshal.Cast<byte, uint>(rawEntryData);
             this.mFileEntries = new(fileCount);
             for (int i = 0; i < fileCount; ++i)
             {
                 int pos = 4 * i;
-                ArchiveCrypto.FileEntry entry = new()
+                ArchiveCryptoV10.FileEntry entry = new()
                 {
                     Size = rawEntryDataPack4[pos + 0],
                     Key = rawEntryDataPack4[pos + 2],
@@ -116,13 +86,12 @@ namespace NekoNyanStatic.Crypto.V1
             }
         }
 
-
         /// <summary>
         /// 生成key  256字节长度
         /// </summary>
         /// <param name="tablePtr">表指针</param>
         /// <param name="key">key</param>
-        private void KeyGenerator(Span<byte> tablePtr, uint key)
+        protected override void KeyGenerator(Span<byte> tablePtr, uint key)
         {
             uint k1 = key * 0x00001CDF + 0x0000A74C;
             uint k2 = k1 << 0x11 ^ k1;
@@ -143,7 +112,7 @@ namespace NekoNyanStatic.Crypto.V1
         /// </summary>
         /// <param name="data">数据</param>
         /// <param name="key">解密Key</param>
-        private void Decrypt(Span<byte> data, uint key)
+        protected override void Decrypt(Span<byte> data, uint key)
         {
             Span<byte> table = stackalloc byte[256];
             this.KeyGenerator(table, key);
@@ -158,82 +127,5 @@ namespace NekoNyanStatic.Crypto.V1
             }
         }
 
-        /// <summary>
-        /// 提取资源
-        /// </summary>
-        public void Extract()
-        {
-
-            foreach(ArchiveCrypto.FileEntry entry in CollectionsMarshal.AsSpan(this.mFileEntries))
-            {
-                string extractPath = Path.Combine(this.mExtractDir, entry.FileName);
-                string archiveDir = Path.GetDirectoryName(extractPath);
-                if (!Directory.Exists(archiveDir))
-                {
-                    Directory.CreateDirectory(archiveDir);
-                }
-
-                //读取并解密资源
-                this.mFileStream.Position = entry.Offset;
-                byte[] buffer = ArrayPool<byte>.Shared.Rent((int)entry.Size);
-
-                Span<byte> data = buffer.AsSpan(0, (int)entry.Size);
-                this.mFileStream.Read(data);
-                this.Decrypt(data, entry.Key);
-
-                //回写解密后资源
-                using FileStream outStream = new(extractPath, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
-                outStream.Write(data);
-                outStream.Flush();
-
-                //释放
-                ArrayPool<byte>.Shared.Return(buffer);
-            }
-        }
-
-
-        /// <summary>
-        /// 释放
-        /// </summary>
-        public void Dispose()
-        {
-            this.mFileEntries.Clear();
-
-            this.mFileStream.Close();
-            this.mFileStream.Dispose();
-        }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="pkgPath">封包全路径</param>
-        public ArchiveCrypto(string pkgPath)
-        {
-            this.mFileStream = File.OpenRead(pkgPath);
-            this.mPackageName = Path.GetFileNameWithoutExtension(pkgPath);
-            this.mExtractDir = Path.Combine(Path.GetDirectoryName(pkgPath), "Extract", this.mPackageName);
-            this.Initialize();
-        }
-
-
-
-        /// <summary>
-        /// 枚举封包路径
-        /// </summary>
-        /// <param name="dirPath">封包文件夹路径</param>
-        /// <returns></returns>
-        public static IEnumerable<string> EnumeratePackagePaths(string dirPath)
-        {
-            return Directory.EnumerateFiles(dirPath, "*.dat");
-        }
-        /// <summary>
-        /// 检查是否合法封包
-        /// </summary>
-        /// <param name="path">封包路径</param>
-        /// <returns></returns>
-        public static bool IsVaildPackage(string path)
-        {
-            return Path.GetExtension(path) == ".dat";
-        }
     }
 }

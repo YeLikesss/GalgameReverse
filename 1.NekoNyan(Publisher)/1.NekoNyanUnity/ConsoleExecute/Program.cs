@@ -1,5 +1,5 @@
 ﻿using System;
-using NekoNyanStatic.Crypto.V1;
+using NekoNyanStatic.Crypto;
 
 namespace ConsoleExecute
 {
@@ -12,21 +12,13 @@ namespace ConsoleExecute
             foreach(var pkgPath in args)
             {
 
-                if (ArchiveCrypto.IsVaildPackage(pkgPath))
+                if (ArchiveCryptoBase.IsVaildPackage(pkgPath))
                 {
-                    ArchiveCrypto crypto = new(pkgPath);
-                    crypto.Extract();
-                    crypto.Dispose();
-
-                    Console.WriteLine(string.Concat(pkgPath, "  Extract Success"));
-                }
-                else
-                {
-                    Console.WriteLine(string.Concat(pkgPath, "  Invaild Package"));
+                    ArchiveCryptoBase filter = ArchiveCryptoBase.Create(pkgPath,CryptoVersion.V10);
+                    filter.Extract();
+                    filter.Dispose();
                 }
             }
-            Console.WriteLine("Press Any Key To Exit");
-            Console.Read();
         }
     }
 }

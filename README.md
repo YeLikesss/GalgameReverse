@@ -3,6 +3,7 @@
 * <font size=5>国产Galgame请看[这边](https://github.com/YeLikesss/CNGALTools)</font>
 * <font size=5>开源项目需要自己下载Visual Studio进行编译</font>
 * <font size=5>程序仅在Windows 7 x64 SP1下开发并测试通过 其他系统如出现兼容性问题需自行解决</font>
+* <font size=5>GUI仅支持100%DPI下运行  如需高DPI支持  请自己写(逃)</font>
 * <font size=5>如部分项目不开源请谅解</font>
 
 ### 使用条例

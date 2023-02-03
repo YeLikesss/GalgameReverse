@@ -22,96 +22,99 @@ namespace PbdStatic
         /// <returns></returns>
         public static bool MergeStandGallery(GalleryInformation galleryInfo)
         {
-            //画布长宽
-            int drawTableWidth = 0;
-            int drawTableHeigth = 0;
+            //获取所有图层信息
+            List<List<ImageInformation>> layers = galleryInfo.GetAllPictureLayerInformations();
+            if (layers.Count > 0)
             {
-                ImageInformation drawTableInfo = galleryInfo.GetDrawTableInformation();     //画布信息
-                drawTableWidth = drawTableInfo.Width;
-                drawTableHeigth = drawTableInfo.Height;
-            }
-
-            //获取背景与表情
-            List<ImageInformation> backgroundPictures = galleryInfo.GetBackgroundPictureInformations();       //背景图片信息列表
-            List<ImageInformation> emotePictures = galleryInfo.GetEmotePictureInformations();         //表情图片信息列表
-
-            string currentDirectory = galleryInfo.PackageCurrentDirectory;      //根目录
-            string packageName = galleryInfo.PackageName;               //立绘表名
-
-            //输出文件夹
-            string outputDirectory = Path.Combine(currentDirectory, packageName);
-            if (!Directory.Exists(outputDirectory))
-            {
-                Directory.CreateDirectory(outputDirectory);
-            }
-
-            int picIndex = 0;
-            //合成图片
-            foreach(ImageInformation background in CollectionsMarshal.AsSpan(backgroundPictures))
-            {
-                //背景文件名
-                string backgroundFilename = galleryInfo.GetPictureFilePath(background);
-                //背景文件路径
-                string backgroundPath = Path.Combine(currentDirectory, backgroundFilename);
-                if (File.Exists(backgroundPath))
+                //画布长宽
+                int drawTableWidth = 0;
+                int drawTableHeigth = 0;
                 {
-                    Bitmap backgroundPicture = null;
+                    ImageInformation drawTableInfo = galleryInfo.GetDrawTableInformation();     //画布信息
+                    drawTableWidth = drawTableInfo.Width;
+                    drawTableHeigth = drawTableInfo.Height;
+                }
+
+                string currentDirectory = galleryInfo.PackageCurrentDirectory;      //根目录
+                string packageName = galleryInfo.PackageName;               //立绘表名
+
+                //输出文件夹
+                string outputDirectory = Path.Combine(currentDirectory, packageName);
+                if (!Directory.Exists(outputDirectory))
+                {
+                    Directory.CreateDirectory(outputDirectory);
+                }
+
+                //处理数量
+                long processCount = 1;
+                {
+                    int layersCount = layers.Count;
+                    for (int i = 0; i < layersCount; ++i)
                     {
-                        Bitmap fileBitmap = new(backgroundPath);     //背景图
+                        processCount *= layers[i].Count;
+                    }
+                }
 
-                        //设置透明度
-                        backgroundPicture = ImageProcess.ChangeOpacity(fileBitmap, (byte)background.Opacity);
+                for(long index = 0; index < processCount; ++index)
+                {
+                    int layersCount = layers.Count;     //图层数量
+                    long nowIndex = index;
 
-                        fileBitmap.Dispose();
+                    List<int> layerIndexes = new(layers.Count);
+
+                    //获取各图层的索引
+                    for (int i = layersCount - 1; i >= 0; --i)
+                    {
+                        int xxxLayerPictures = layers[i].Count;     //每个图层的图片数量
+
+                        layerIndexes.Add((int)(nowIndex % xxxLayerPictures));
+
+                        nowIndex /= xxxLayerPictures;
                     }
 
-                    foreach (ImageInformation emote in CollectionsMarshal.AsSpan(emotePictures))
+                    //反转  此时图层0在索引0处
+                    layerIndexes.Reverse();
+
                     {
-                        //表情文件名
-                        string emoteFilename = galleryInfo.GetPictureFilePath(emote);
-                        //表情文件路径
-                        string emotePath = Path.Combine(currentDirectory, emoteFilename);
-                        if (File.Exists(emotePath))
+                        //创建画布
+                        Bitmap drawTable = new(drawTableWidth, drawTableHeigth, PixelFormat.Format32bppArgb);
+
+                        for(int layer = 0; layer< layersCount; ++layer)
                         {
-                            Bitmap emotePicture = null;
+                            List<ImageInformation> xxxLayerPictureInformations = layers[layer];
+                            ImageInformation pictureInfo = xxxLayerPictureInformations[layerIndexes[layer]];
+
+                            string pictureFilePath = galleryInfo.GetPictureFilePath(pictureInfo);
+                            if (File.Exists(pictureFilePath))
                             {
-                                Bitmap bitmapFile = new(emotePath);       //表情图
+                                Bitmap layerPicture = null;
+                                {
+                                    Bitmap bitmapFile = new(pictureFilePath);
 
-                                //设置透明度
-                                emotePicture = ImageProcess.ChangeOpacity(bitmapFile, (byte)emote.Opacity);
+                                    //设置透明度
+                                    layerPicture = ImageProcess.ChangeOpacity(bitmapFile, (byte)pictureInfo.Opacity);
 
-                                bitmapFile.Dispose();
+                                    bitmapFile.Dispose();
+                                }
+
+                                //绘制
+                                ImageProcess.Merge(drawTable, layerPicture, pictureInfo.OffsetX, pictureInfo.OffsetY, ImageProcess.MergeMode.Overlay);
+
+                                layerPicture.Dispose();
                             }
-
+                            else
                             {
-                                Bitmap drawTable = new(drawTableWidth, drawTableHeigth, PixelFormat.Format32bppArgb);
-                                //绘制背景
-                                ImageProcess.Merge(drawTable, backgroundPicture, background.OffsetX, background.OffsetY, ImageProcess.MergeMode.Override);
-                                //合并表情
-                                ImageProcess.Merge(drawTable, emotePicture, emote.OffsetX, emote.OffsetY, ImageProcess.MergeMode.Overlay);
-
-                                //输出
-                                drawTable.Save(Path.Combine(outputDirectory, picIndex.ToString() + GalleryInformation.SPictureFileExtension), ImageFormat.Png);
-                                drawTable.Dispose();
+                                //文件不存在
                             }
-
-                            emotePicture.Dispose();
-                            ++picIndex;
                         }
-                        else
-                        {
-                            //文件不存在
-                        }
+                        //输出
+                        drawTable.Save(Path.Combine(outputDirectory, index.ToString() + GalleryInformation.SPictureFileExtension), ImageFormat.Png);
+                        drawTable.Dispose();
                     }
-
-                    backgroundPicture.Dispose();
                 }
-                else
-                {
-                    //文件不存在
-                }
+                return true;
             }
-            return true;
+            return false;
         }
     }
 }

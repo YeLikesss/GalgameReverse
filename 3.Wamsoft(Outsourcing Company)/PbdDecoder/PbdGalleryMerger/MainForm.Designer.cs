@@ -38,8 +38,7 @@
             this.pictureBoxPreview = new System.Windows.Forms.PictureBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.lbPictureRightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.btnSetEmote = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnSetBackground = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSetLayerLevel = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSetNone = new System.Windows.Forms.ToolStripMenuItem();
             this.picPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).BeginInit();
@@ -116,31 +115,22 @@
             this.lbPictureRightClickMenu.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbPictureRightClickMenu.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.lbPictureRightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnSetEmote,
-            this.btnSetBackground,
+            this.btnSetLayerLevel,
             this.btnSetNone});
             this.lbPictureRightClickMenu.Name = "lbPictureRightClickMenu";
-            this.lbPictureRightClickMenu.Size = new System.Drawing.Size(144, 76);
+            this.lbPictureRightClickMenu.Size = new System.Drawing.Size(157, 52);
             // 
-            // btnSetEmote
+            // btnSetLayerLevel
             // 
-            this.btnSetEmote.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnSetEmote.Name = "btnSetEmote";
-            this.btnSetEmote.Size = new System.Drawing.Size(143, 24);
-            this.btnSetEmote.Text = "设置为表情";
-            this.btnSetEmote.Click += new System.EventHandler(this.btnRightClickMenu_Click);
-            // 
-            // btnSetBackground
-            // 
-            this.btnSetBackground.Name = "btnSetBackground";
-            this.btnSetBackground.Size = new System.Drawing.Size(143, 24);
-            this.btnSetBackground.Text = "设置为背景";
-            this.btnSetBackground.Click += new System.EventHandler(this.btnRightClickMenu_Click);
+            this.btnSetLayerLevel.Name = "btnSetLayerLevel";
+            this.btnSetLayerLevel.Size = new System.Drawing.Size(156, 24);
+            this.btnSetLayerLevel.Text = "设置图层等级";
+            this.btnSetLayerLevel.Click += new System.EventHandler(this.btnRightClickMenu_Click);
             // 
             // btnSetNone
             // 
             this.btnSetNone.Name = "btnSetNone";
-            this.btnSetNone.Size = new System.Drawing.Size(143, 24);
+            this.btnSetNone.Size = new System.Drawing.Size(156, 24);
             this.btnSetNone.Text = "清空设置";
             this.btnSetNone.Click += new System.EventHandler(this.btnRightClickMenu_Click);
             // 
@@ -162,6 +152,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "PbdGalleryMerger - Static Mode ";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.picPanel.ResumeLayout(false);
             this.picPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreview)).EndInit();
@@ -180,8 +171,7 @@
         private System.Windows.Forms.PictureBox pictureBoxPreview;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.ContextMenuStrip lbPictureRightClickMenu;
-        private System.Windows.Forms.ToolStripMenuItem btnSetEmote;
-        private System.Windows.Forms.ToolStripMenuItem btnSetBackground;
+        private System.Windows.Forms.ToolStripMenuItem btnSetLayerLevel;
         private System.Windows.Forms.ToolStripMenuItem btnSetNone;
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 
 namespace PbdStatic.Database
 {
+
+
     /// <summary>
     /// 花鐘カナデ グラム Chapter:1 小桜結
     /// <para>花鐘カナデ グラム Chapter:2 花ノ香澄玲</para>
@@ -37,6 +39,27 @@ namespace PbdStatic.Database
     {
     }
 
+    /// <summary>
+    /// キスからはじめるエゴイズム
+    /// </summary>
+    internal class EgoismStartingWithaKiss : GameInformationBase
+    {
+    }
+
+    /// <summary>
+    /// RiddleJoker
+    /// </summary>
+    internal class RiddleJoker : GameInformationBase
+    {
+    }
+
+    /// <summary>
+    /// ATRI -My Dear Moments-
+    /// </summary>
+    internal class AtriMyDearMoment : GameInformationBase
+    {
+    }
+
     public class DataManager
     {
         private static Dictionary<string, GameInformationBase> mSDatabase = new(32)
@@ -47,6 +70,9 @@ namespace PbdStatic.Database
             { "Nanagane Gakuen Ryokou Bu Tour:02 Hakone Hen", new NanaganeGakuenTravel() },
             { "Ambitious Mission", new AmbitiousMission() },
             { "Zwei Trigger", new ZweiTrigger() },
+            { "Egoism Starting With a Kiss", new EgoismStartingWithaKiss() },
+            { "Riddle Joker", new RiddleJoker() },
+            { "ATRI -My Dear Moments-", new AtriMyDearMoment() },
         };
 
         /// <summary>

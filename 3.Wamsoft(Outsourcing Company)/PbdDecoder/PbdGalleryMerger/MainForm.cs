@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,6 +12,7 @@ namespace PbdGalleryMerger
 {
     public partial class MainForm : Form
     {
+
         public MainForm()
         {
             InitializeComponent();
@@ -20,11 +21,12 @@ namespace PbdGalleryMerger
             this.InitializeBinder();
         }
 
-        private GalleryInformation mGalleryInformation;         //Á¢»æĞÅÏ¢
-        private Dictionary<ToolStripMenuItem, PictureType> mSetTypeButtonBinder;   //ÉèÖÃÀàĞÍ°´Å¥°ó¶¨
+        private GalleryInformation mGalleryInformation;         //ç«‹ç»˜ä¿¡æ¯
+        private Dictionary<ToolStripMenuItem, bool> mSetTypeButtonBinder;   //è®¾ç½®ç±»å‹æŒ‰é’®ç»‘å®š
+        private LayerLevelDialog mLayerSetterForm = new();          //å›¾å±‚è®¾ç½®çª—å£
 
         /// <summary>
-        /// ³õÊ¼»¯ÓÎÏ·Ñ¡ÔñÆ÷
+        /// åˆå§‹åŒ–æ¸¸æˆé€‰æ‹©å™¨
         /// </summary>
         private void InitializeGameTitleSelector()
         {
@@ -38,16 +40,15 @@ namespace PbdGalleryMerger
 
         private void InitializeBinder()
         {
-            this.mSetTypeButtonBinder = new(3)
+            this.mSetTypeButtonBinder = new(2)
             {
-                { this.btnSetNone, PictureType.None },
-                { this.btnSetBackground, PictureType.Character },
-                { this.btnSetEmote, PictureType.Emote }
+                { this.btnSetNone, false },
+                { this.btnSetLayerLevel, true },
             };
         }
 
         /// <summary>
-        /// ³õÊ¼»¯Í¼ÏñĞÅÏ¢
+        /// åˆå§‹åŒ–å›¾åƒä¿¡æ¯
         /// </summary>
         private void InitializePictureInformation()
         {
@@ -57,9 +58,9 @@ namespace PbdGalleryMerger
             {
                 var p = pictureInfos[i];
                 string itemStr = null;
-                if (p.IsPictureTypeSet)
+                if (p.LayerAttribute.IsLayerLevelSet)
                 {
-                    itemStr = string.Format("{0} ---> {1}", p.Name, p.PictureStringType);
+                    itemStr = string.Format("{0}  --->  {1}", p.Name, p.LayerAttribute.LayerLevelString);
                 }
                 else
                 {
@@ -69,13 +70,31 @@ namespace PbdGalleryMerger
             }
         }
 
+        /// <summary>
+        /// åˆ·æ–°å›¾åƒä¿¡æ¯
+        /// </summary>
+        private void UpdatePictureInformation(int selectIndex, ImageInformation info)
+        {
+            string itemStr = null;
+            if (info.LayerAttribute.IsLayerLevelSet)
+            {
+                itemStr = string.Format("{0}  --->  {1}", info.Name, info.LayerAttribute.LayerLevelString);
+            }
+            else
+            {
+                itemStr = info.Name;
+            }
+            this.lbImageInformation.Items[selectIndex] = itemStr;
+        }
+
+
         private void btnSelectPbdFile_Click(object sender, EventArgs e)
         {
             if (DataManager.SDataBase.TryGetValue(this.cbGameTitle.SelectedItem.ToString(), out GameInformationBase gameinfo))
             {
                 OpenFileDialog fileDialog = new()
                 {
-                    Title = "ÇëÑ¡ÔñpbdÎÄ¼ş",
+                    Title = "è¯·é€‰æ‹©pbdæ–‡ä»¶",
                     Filter = "pbd File(*.pbd)|*.pbd",
                     CheckFileExists = true,
                     CheckPathExists = true,
@@ -97,7 +116,7 @@ namespace PbdGalleryMerger
             }
             else
             {
-                MessageBox.Show("ÇëÑ¡ÔñÓÎÏ·", "Error");
+                MessageBox.Show("è¯·é€‰æ‹©æ¸¸æˆ", "Error");
             }
         }
 
@@ -117,7 +136,7 @@ namespace PbdGalleryMerger
                 }
                 else
                 {
-                    this.labelStatus.Text = "ÎÄ¼ş²»´æÔÚ";
+                    this.labelStatus.Text = "æ–‡ä»¶ä¸å­˜åœ¨";
                 }
             }
         }
@@ -125,7 +144,7 @@ namespace PbdGalleryMerger
         private void lbImageInformation_MouseUp(object sender, MouseEventArgs e)
         {
             ListBox lb = sender as ListBox;
-            //ÓÒ¼ü
+            //å³é”®
             if (e.Button == MouseButtons.Right)
             {
                 int selectIndex = lb.IndexFromPoint(e.Location);
@@ -140,30 +159,54 @@ namespace PbdGalleryMerger
         private void btnRightClickMenu_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem btn = sender as ToolStripMenuItem;
-            this.mGalleryInformation.GetImagePictureInformations()[this.lbImageInformation.SelectedIndex].PictureType = this.mSetTypeButtonBinder[btn];
-            this.InitializePictureInformation();
+
+            int selectIndex = this.lbImageInformation.SelectedIndex;
+
+            ImageInformation imageInfo = this.mGalleryInformation.GetImagePictureInformations()[this.lbImageInformation.SelectedIndex];
+            if (this.mSetTypeButtonBinder[btn])
+            {
+                if (this.mLayerSetterForm.ShowDialog() == DialogResult.OK)
+                {
+                    imageInfo.LayerAttribute.LayerLevel = (int)this.mLayerSetterForm.GetLayerLevel();
+                    this.UpdatePictureInformation(selectIndex, imageInfo);
+                }
+            }
+            else
+            {
+                imageInfo.LayerAttribute.ClearLayerLevel();         //æ¸…ç©ºå›¾å±‚
+                this.UpdatePictureInformation(selectIndex, imageInfo);
+            }
         }
 
         private void btnMerge_Click(object sender, EventArgs e)
         {
             if (this.mGalleryInformation != null)
             {
-                Button btn = sender as Button;
-                btn.Enabled = false;
-                new Thread(new ThreadStart(() =>
+                if(MessageBox.Show("åˆæˆé€Ÿåº¦è¾ƒæ…¢\nè¯·è€å¿ƒç­‰å¾…\n\nè¯·ç‚¹å‡»ç¡®å®šå¼€å§‹åˆæˆ", "Information", MessageBoxButtons.OK) == DialogResult.OK)
                 {
-                    GalleryProcess.MergeStandGallery(this.mGalleryInformation);
-                    this.BeginInvoke(() =>
+                    Button btn = sender as Button;
+                    btn.Enabled = false;
+                    new Thread(new ThreadStart(() =>
                     {
-                        btn.Enabled = true;
-                    });
-                    MessageBox.Show("ºÏ²¢³É¹¦", "Information");
-                })).Start();
+                        GalleryProcess.MergeStandGallery(this.mGalleryInformation);
+                        this.BeginInvoke(() =>
+                        {
+                            btn.Enabled = true;
+                        });
+                        MessageBox.Show("åˆå¹¶æˆåŠŸ", "Information");
+                    })).Start();
+                }
             }
             else
             {
-                MessageBox.Show("ÇëÏÈ¼ÓÔØpbdÁ¢»æÎÄ¼ş", "Error");
+                MessageBox.Show("è¯·å…ˆåŠ è½½pbdç«‹ç»˜æ–‡ä»¶", "Error");
             }
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.mLayerSetterForm.Dispose();
+            this.pictureBoxPreview?.Dispose();
         }
     }
 }

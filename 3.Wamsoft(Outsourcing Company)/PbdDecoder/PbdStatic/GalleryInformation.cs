@@ -60,22 +60,28 @@ namespace PbdStatic
         }
 
         /// <summary>
-        /// 获取背景底图信息列表
+        /// 获取所有图层信息
         /// </summary>
         /// <returns></returns>
-        public List<ImageInformation> GetBackgroundPictureInformations()
+        public List<List<ImageInformation>> GetAllPictureLayerInformations()
         {
-            return this.GetImagePictureInformations().FindAll(info => info.PictureType == PictureType.Character);
+            int count = LayerAttribute.SMaxLayerCount;
+            List<List<ImageInformation>> layers = new(count);
+
+            List<ImageInformation> images = this.GetImagePictureInformations();
+            for(int level = 0; level < count; ++level)
+            {
+                List<ImageInformation> xxxLevelImages = images.FindAll(info => info.LayerAttribute.LayerLevel == level);
+
+                //过滤掉空图层
+                if (xxxLevelImages.Count > 0)
+                {
+                    layers.Add(xxxLevelImages);
+                }
+            }
+            return layers;
         }
 
-        /// <summary>
-        /// 获取表情信息列表
-        /// </summary>
-        /// <returns></returns>
-        public List<ImageInformation> GetEmotePictureInformations()
-        {
-            return this.GetImagePictureInformations().FindAll(info => info.PictureType == PictureType.Emote);
-        }
 
         /// <summary>
         /// 获取图片信息列表
@@ -86,8 +92,6 @@ namespace PbdStatic
         {
             return this.GetImagePictureInformations().FindAll(info => info.GroupLayerID == groupLayerId);
         }
-
-
 
         /// <summary>
         /// 获取图片文件名
@@ -179,24 +183,117 @@ namespace PbdStatic
 
                 checked
                 {
-                    imageInfo.LayerType = tjsImageInfoDic.TryGetValue("layer_type", out TJSVariant tjsLayerType) ? (int)tjsLayerType.SignInt64() : -1;
-                    imageInfo.Name = tjsImageInfoDic.TryGetValue("name", out TJSVariant tjsName) ? tjsName.String() : null;
-                    imageInfo.OffsetX = tjsImageInfoDic.TryGetValue("left", out TJSVariant tjsOffsetX) ? (int)tjsOffsetX.SignInt64() : -1;
-                    imageInfo.OffsetY = tjsImageInfoDic.TryGetValue("top", out TJSVariant tjsOffsetY) ? (int)tjsOffsetY.SignInt64() : -1;
-                    imageInfo.Width = tjsImageInfoDic.TryGetValue("width", out TJSVariant tjsWidth) ? (int)tjsWidth.SignInt64() : -1;
-                    imageInfo.Height = tjsImageInfoDic.TryGetValue("height", out TJSVariant tjsHeight) ? (int)tjsHeight.SignInt64() : -1;
+                    //类型
+                    {
+                        imageInfo.LayerType = tjsImageInfoDic.TryGetValue("layer_type", out TJSVariant tjsLayerType) ? (int)tjsLayerType.SignInt64() : -1;
+                    }
+
+                    //名称
+                    {
+                        imageInfo.Name = tjsImageInfoDic.TryGetValue("name", out TJSVariant tjsName) ? tjsName.String() : null;
+                    }
+
+                    //X偏移
+                    {
+                        int x = -1;
+                        if(tjsImageInfoDic.TryGetValue("left", out TJSVariant tjsOffsetX))
+                        {
+                            try
+                            {
+                                x = (int)tjsOffsetX.SignInt64();
+                            }
+                            catch
+                            {
+                                x = (int)tjsOffsetX.Double();
+                            }
+                        }
+                        imageInfo.OffsetX = x;
+                    }
+
+                    //Y偏移
+                    {
+                        int y = -1;
+                        if(tjsImageInfoDic.TryGetValue("top", out TJSVariant tjsOffsetY))
+                        {
+                            try
+                            {
+                                y = (int)tjsOffsetY.SignInt64();
+                            }
+                            catch
+                            {
+                                y = (int)tjsOffsetY.Double();
+                            }
+                        }
+                        imageInfo.OffsetY = y;
+                    }
+
+                    //图像宽度
+                    {
+                        int w = -1;
+                        if(tjsImageInfoDic.TryGetValue("width", out TJSVariant tjsWidth))
+                        {
+                            try
+                            {
+                                w = (int)tjsWidth.SignInt64();
+                            }
+                            catch
+                            {
+                                w = (int)tjsWidth.Double();
+                            }
+                        }
+                        imageInfo.Width = w;
+                    }
+
+                    //图像高度
+                    {
+                        int h = -1;
+                        if(tjsImageInfoDic.TryGetValue("height", out TJSVariant tjsHeight))
+                        {
+                            try
+                            {
+                                h = (int)tjsHeight.SignInt64();
+                            }
+                            catch
+                            {
+                                h = (int)tjsHeight.Double();
+                            }
+                        }
+                        imageInfo.Height = h;
+                    }
 
                     //不知道干嘛用的
-                    imageInfo.Type = tjsImageInfoDic.TryGetValue("type", out TJSVariant tjsType) ? (int)tjsType.SignInt64() : -1;
+                    {
+                        imageInfo.Type = tjsImageInfoDic.TryGetValue("type", out TJSVariant tjsType) ? (int)tjsType.SignInt64() : -1;
+                    }
 
-                    imageInfo.Opacity = tjsImageInfoDic.TryGetValue("opacity", out TJSVariant tjsOpacity) ? (int)tjsOpacity.SignInt64() : -1;
-                    imageInfo.Visible = tjsImageInfoDic.TryGetValue("visible", out TJSVariant tjsVisible) ? (int)tjsVisible.SignInt64() : -1;
-                    imageInfo.LayerID = tjsImageInfoDic.TryGetValue("layer_id", out TJSVariant tjsLayerID) ? (int)tjsLayerID.SignInt64() : -1;
-                    imageInfo.GroupLayerID = tjsImageInfoDic.TryGetValue("group_layer_id", out TJSVariant tjsGroupLayerID) ? (int)tjsGroupLayerID.SignInt64() : -1;
+                    //图像透明度
+                    {
+                        imageInfo.Opacity = tjsImageInfoDic.TryGetValue("opacity", out TJSVariant tjsOpacity) ? (int)tjsOpacity.SignInt64() : -1;
+                    }
 
                     //不知道干嘛用的
-                    imageInfo.Base = tjsImageInfoDic.TryGetValue("base", out TJSVariant tjsBase) ? (int)tjsBase.SignInt64() : -1;
-                    imageInfo.Images = tjsImageInfoDic.TryGetValue("images", out TJSVariant tjsImages) ? (int)tjsImages.SignInt64() : -1;
+                    {
+                        imageInfo.Visible = tjsImageInfoDic.TryGetValue("visible", out TJSVariant tjsVisible) ? (int)tjsVisible.SignInt64() : -1;
+                    }
+
+                    //图层资源ID
+                    {
+                        imageInfo.LayerID = tjsImageInfoDic.TryGetValue("layer_id", out TJSVariant tjsLayerID) ? (int)tjsLayerID.SignInt64() : -1;
+                    }
+
+                    //图层组ID
+                    {
+                        imageInfo.GroupLayerID = tjsImageInfoDic.TryGetValue("group_layer_id", out TJSVariant tjsGroupLayerID) ? (int)tjsGroupLayerID.SignInt64() : -1;
+                    }
+
+                    //不知道干嘛用的
+                    {
+                        imageInfo.Base = tjsImageInfoDic.TryGetValue("base", out TJSVariant tjsBase) ? (int)tjsBase.SignInt64() : -1;
+                    }
+                    //不知道干嘛用的
+                    {
+                        imageInfo.Images = tjsImageInfoDic.TryGetValue("images", out TJSVariant tjsImages) ? (int)tjsImages.SignInt64() : -1;
+                    }
                 }
                 gallery.ImageInformations.Add(imageInfo);
             }
@@ -220,23 +317,40 @@ namespace PbdStatic
     }
 
     /// <summary>
-    /// 图片类型
+    /// 图层属性
     /// </summary>
-    public enum PictureType : int
+    public class LayerAttribute
     {
         /// <summary>
-        /// 无
+        /// 获取图层级别
         /// </summary>
-        None = 0,
+        public int LayerLevel { get; set; } = -1;
+
         /// <summary>
-        /// 角色背景底图
+        /// 获取图层级别(字符串)
         /// </summary>
-        Character = 1,
+        public string LayerLevelString => string.Format("图层{0}", this.LayerLevel.ToString());
+
         /// <summary>
-        /// 表情前景图
+        /// 图层是否已设置
         /// </summary>
-        Emote = 2,
+        public bool IsLayerLevelSet => this.LayerLevel >= 0;
+
+        /// <summary>
+        /// 最大图层数量
+        /// </summary>
+        public static int SMaxLayerCount => 16;
+
+        /// <summary>
+        /// 清空图层
+        /// </summary>
+        public void ClearLayerLevel()
+        {
+            this.LayerLevel = -1;
+        }
     }
+
+
 
     /// <summary>
     /// 图片信息
@@ -289,43 +403,11 @@ namespace PbdStatic
         public int Base { get; set; }
         public int Images { get; set; }
 
+        /// <summary>
+        /// 图层属性
+        /// </summary>
+        public LayerAttribute LayerAttribute { get; } = new();
 
-        /// <summary>
-        /// 图片类型
-        /// </summary>
-        public PictureType PictureType { get; set; } = PictureType.None;
-        /// <summary>
-        /// 图片类型  (字符串信息)
-        /// </summary>
-        public string PictureStringType
-        { 
-            get
-            {
-                return this.PictureType switch
-                {
-                    PictureType.None => "未设置",
-                    PictureType.Character => "角色底图",
-                    PictureType.Emote => "表情",
-                    _ => "未知类型",
-                };
-            }
-        }
-
-        /// <summary>
-        /// 图片类型是否已设置
-        /// </summary>
-        public bool IsPictureTypeSet
-        {
-            get
-            {
-                return this.PictureType switch
-                {
-                    PictureType.None => false,
-                    PictureType.Character or PictureType.Emote => true,
-                    _ => false,
-                };
-            }
-        }
 
         /// <summary>
         /// 是否为画布
@@ -353,6 +435,8 @@ namespace PbdStatic
         {
             return this.LayerType != -1 && this.LayerType == (int)ImageLayerType.Picture;
         }
-
     }
+
+
+
 }

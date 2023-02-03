@@ -8,7 +8,6 @@
 ### 使用条例
 
 * <font size=5>禁止用于任何商业行为</font>
-* <font size=5>禁止用于任何形式机器翻译</font>
 * <font size=5>禁止用于移植到任何非原生x86/x64 Windows(包括但不限于Kirikiroid Ons Wine Exagear Windows ARM等平台上)</font>
 * <font size=5>禁止用于任何AI学习</font>
 

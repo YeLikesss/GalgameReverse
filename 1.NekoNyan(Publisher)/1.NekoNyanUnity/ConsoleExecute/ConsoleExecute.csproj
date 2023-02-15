@@ -5,18 +5,16 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Platforms>x64</Platforms>
     <NoWin32Manifest>true</NoWin32Manifest>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<FileAlignment>8192</FileAlignment>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <FileAlignment>8192</FileAlignment>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <FileAlignment>8192</FileAlignment>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>

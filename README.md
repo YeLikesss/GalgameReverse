@@ -47,6 +47,12 @@
     &emsp;编译环境 
     
     &emsp;&emsp;.Net 6.x
+    
+* 2.《未来ラジオと人工鳩》 (Unity Official Chs-Cht-Eng Ver)  [HikariField --- NekoNyan] (静态提取)
+
+    &emsp;编译环境 
+
+    &emsp;&emsp;.Net 6.x
 
 #### 3.Wamsoft外包厂
 

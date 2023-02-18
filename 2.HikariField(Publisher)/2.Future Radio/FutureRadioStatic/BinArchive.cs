@@ -189,13 +189,12 @@ namespace FutureRadioStatic
                     pidaArchive?.Extract(Path.GetDirectoryName(outputPath));
                     pidaArchive?.Dispose();
                 }
-                else
-                {
-                    FileStream outFs = new(outputPath, FileMode.Create, FileAccess.ReadWrite);
-                    outFs.Write(buffer, 0, readLen);
-                    outFs.Flush();
-                    outFs.Dispose();
-                }
+
+                FileStream outFs = new(outputPath, FileMode.Create, FileAccess.ReadWrite);
+                outFs.Write(buffer, 0, readLen);
+                outFs.Flush();
+                outFs.Dispose();
+
                 Console.WriteLine(string.Format("Extract Success ---> {0}", fileEntry.FileName));
             }
             ArrayPool<byte>.Shared.Return(buffer);

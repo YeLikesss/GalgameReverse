@@ -103,7 +103,7 @@ namespace FutureRadioStatic
             stream.Position = 4;
 
             List<ImageEntry> imageEntries = new(256);
-            BinaryReader br = new(stream, Encoding.Unicode);
+            using BinaryReader br = new(stream, Encoding.Unicode, true);
 
             stream.Position += 4;
 
@@ -191,6 +191,7 @@ namespace FutureRadioStatic
                 {
                     ArrayPool<byte>.Shared.Return(buffer);
                     buffer = ArrayPool<byte>.Shared.Rent((int)size);
+                    bufferLength = (int)size;
                 }
 
                 stream.Position = offset;

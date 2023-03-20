@@ -20,11 +20,11 @@
 
 * 1.自研封包V1 (Unity)  (静态提取)
 
-  使用方法
+  &emsp;使用方法
 
   &emsp;已配置好发布文件  右键ExtractGUI然后发布即可使用
 
-  游戏测试
+  &emsp;游戏测试
 
   &emsp;&emsp;《蒼の彼方のフォーリズム》 V10
 
@@ -34,7 +34,7 @@
 
   &emsp;&emsp;《蒼の彼方のフォーリズム EXTRA2》 V11
 
-  编译环境
+  &emsp;编译环境
 
   &emsp;&emsp;.Net 6.x
 
@@ -125,7 +125,29 @@
 
     &emsp;&emsp;System.Drawing.Common
 
+#### 4.SyawaseWorks发行商
+
+* 1.《ハミダシクリエイティブ》 (Offical Steam Release Ver) (破解&Dumper)
+
+    &emsp;方案
+
+    &emsp;&emsp;LocalFile Encryptor + Themida3.x VM + Xbundle SteamAPI
+  
+    &emsp;使用方法
+
+    &emsp;&emsp;1.CFF Explorer添加导入表 并且加载顺序在hamidashi.dll之前
     
+    &emsp;&emsp;2.将Steam补丁放到游戏目录下
+
+    &emsp;&emsp;3.Dumper_Output为资源文件输出
+
+    &emsp;编译环境
+
+    &emsp;&emsp;MSVC 2022 x86
+
+    &emsp;依赖
+
+    &emsp;&emsp;Detours
 
 #### SP1.优化补丁
 

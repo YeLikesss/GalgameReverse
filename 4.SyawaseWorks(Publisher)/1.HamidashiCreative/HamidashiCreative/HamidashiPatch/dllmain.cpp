@@ -402,9 +402,9 @@ void StartUp()
     //dump筛选器
     g_regexExcludeRules.clear();
     g_regexExcludeRules.push_back(L"^[a-zA-Z]:([\\\\/].+)+$");
-    g_regexExcludeRules.push_back(L"^saveg.dat$");
-    g_regexExcludeRules.push_back(L"^system.dat$");
-    g_regexExcludeRules.push_back(L"^save[0-9]{4}.dat$");
+    g_regexExcludeRules.push_back(L"^saveg\\.dat$");
+    g_regexExcludeRules.push_back(L"^system\\.dat$");
+    g_regexExcludeRules.push_back(L"^save[0-9]{4}\\.dat$");
 
 }
 

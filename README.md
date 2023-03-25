@@ -149,6 +149,26 @@
 
     &emsp;&emsp;Detours
 
+* 1.《HappyLiveShowUp》 (Offical Steam Release Ver) (破解)
+
+    &emsp;方案
+
+    &emsp;&emsp;PackageFile Encryptor + Themida3.x VM + Xbundle SteamAPI
+  
+    &emsp;使用方法
+
+    &emsp;&emsp;1.CFF Explorer添加导入表 并且加载顺序在hamidashi.dll之前
+    
+    &emsp;&emsp;2.将Steam补丁放到游戏目录下
+
+    &emsp;编译环境
+
+    &emsp;&emsp;MSVC 2022 x86
+
+    &emsp;依赖
+
+    &emsp;&emsp;Detours
+
 #### SP1.优化补丁
 
 * 1.《素敵な彼女の作り方》 垂直同步补丁 降低显卡占用(Steam版)

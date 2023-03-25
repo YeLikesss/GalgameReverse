@@ -149,7 +149,7 @@
 
     &emsp;&emsp;Detours
 
-* 1.《HappyLiveShowUp》 (Offical Steam Release Ver) (破解)
+* 2.《HappyLiveShowUp》 (Offical Steam Release Ver) (破解)
 
     &emsp;方案
 

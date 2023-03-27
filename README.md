@@ -3,16 +3,16 @@
 * <font size=5>国产Galgame请看[这边](https://github.com/YeLikesss/CNGALTools)</font>
 * <font size=5>开源项目需要自己下载Visual Studio进行编译</font>
 * <font size=5>程序仅在Windows 7 x64 SP1下开发并测试通过 其他系统如出现兼容性问题需自行解决</font>
-* <font size=5>GUI仅支持100%DPI下运行  如需高DPI支持  请自己写(逃)</font>
-* <font size=5>如部分项目不开源请谅解</font>
+* <font size=5>GUI仅支持100%DPI下运行  如需高DPI支持  请自己写</font>
 
 ### 使用条例
 
+* <font size=5>禁止用于任何机翻云翻</font>
 * <font size=5>禁止用于任何商业行为</font>
 * <font size=5>禁止用于移植到任何非原生x86/x64 Windows(包括但不限于Kirikiroid Ons Wine Exagear Windows ARM等平台上)</font>
 * <font size=5>禁止用于任何AI学习</font>
 
-### 一经发现  跑路并不再更新    (垃圾圈子机翻移植烂活就是多)
+### 2023.3.27  投降不干 跑路了(原因:机翻-移植模拟器-录播-偷窃-训练AI等行为泛滥)  以后专注于国产Galgame部分
 
 ### 项目内容
 
